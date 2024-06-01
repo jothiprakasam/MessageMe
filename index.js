@@ -1,21 +1,25 @@
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 const port = 3000;
-const path=require("path");
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+const path = require("path");
+const { parse } = require("path/posix");
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 // Set up body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.render("home");
 });
+app.get("/about", (req, res) => {
+  res.send("About Page");
+});
 
-app.post('/post', (req, res) => {
-  res.render("home",{body:req.body.name})
-  console.log(req.body.id,":", req.body.name); 
+app.post("/post", (req, res) => {
+  res.render("home", { body: req.body.name });
+  console.log(req.body.id, ":", req.body.name);
   //res.send(req.body.id +":" + req.body.name);
 });
 
